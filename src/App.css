@@ -3,4 +3,12 @@
 }
 body {
   cursor: default;
+  background-color: rgba(250, 235, 215, 0.4);
+}
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
 }
