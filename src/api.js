@@ -1,9 +1,10 @@
-export const geo_api_url = "https://wft-geo-db.p.rapidapi.com/v1/geo";
+const geoApi = "";
 
-export const geoApiOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "2bb940db09msh376a51f41b6afc2p1d75acjsnf4796df9cbc0",
-    "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-  },
+const getWeatherApi = (cityName, geoApiKey, setNameOfCity) => {
+  return fetch(
+    `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${geoApiKey}`
+  )
+    .then((res) => res.json())
+    .then((data) => setNameOfCity(data));
 };
+export default getWeatherApi;

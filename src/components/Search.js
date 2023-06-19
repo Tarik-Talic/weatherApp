@@ -1,42 +1,31 @@
-import { useState } from "react";
-import { AsyncPaginate } from "react-select-async-paginate";
-import { geo_api_url, geoApiOptions } from "../api";
+import { useEffect, useState } from "react";
 
-export default function Search({ onSearchChange }) {
-  const [search, setSearch] = useState(null);
+export default function Search(props) {
+  const [nameofCity, setNameOfCity] = useState("");
+  const [city, setCity] = useState("");
 
-  const loadOptions = (inputValue) => {
-    return fetch(
-      `${geo_api_url}/cities?minPopulation=100000&namePrefix=${inputValue}`,
-      geoApiOptions
-    )
+  const geoApiKey = "9a0060434c23a5464a2fe42e9f97f710";
+  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${nameofCity}&limit=1&appid=${geoApiKey}`;
+  const location = props.setCityName;
+  useEffect(() => {
+    fetch(url)
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        return {
-          options: res.data.map((city) => {
-            return {
-              value: `${city.latitude} ${city.longitude}`,
-              label: `${city.name}, ${city.countryCode} `,
-            };
-          }),
-        };
-      })
-      .catch((err) => console.log(err));
-  };
+      .then((data) => location(data));
+  }, [nameofCity]);
 
-  const handleChange = (searchData) => {
-    setSearch(searchData);
-    onSearchChange(searchData);
-  };
+  function handleChange(event) {
+    setCity(event.target.value);
+  }
+  function addName() {
+    setNameOfCity(city);
+  }
 
   return (
-    <AsyncPaginate
-      placeholder="Search for city"
-      debounceTimeout={600}
-      value={search}
-      onChange={handleChange}
-      loadOptions={loadOptions}
-    />
+    <div className="container_search">
+      <input type="text" placeholder="Enter a city" onChange={handleChange} />
+      <button className="container_search_btn" onClick={() => addName()}>
+        Search for a city
+      </button>
+    </div>
   );
 }
