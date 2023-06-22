@@ -1,31 +1,50 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Search(props) {
-  const [nameofCity, setNameOfCity] = useState("");
+  // const [nameofCity, setNameOfCity] = useState("");
   const [city, setCity] = useState("");
 
-  const geoApiKey = "9a0060434c23a5464a2fe42e9f97f710";
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${nameofCity}&limit=1&appid=${geoApiKey}`;
-  const location = props.setCityName;
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => location(data));
-  }, [nameofCity]);
+  // const geoApiKey = "3a123655a834444cef356139026ca886";
+  // const url = `http://api.openweathermap.org/geo/1.0/direct?q=${nameofCity}&limit=1&appid=${geoApiKey}`;
+  // const location = props.getWeatherData;
+  // const url = `https://api.openweathermap.org/data/2.5/weather?q=${nameofCity}&appid=${geoApiKey}&units=metric`;
+  // useEffect(() => {
+  //   console.log("i Run");
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((data) => location(data));
+  // }, [nameofCity]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await fetch(url);
+  //     result.json().then((json) => {
+  //       location(json);
+  //     });
+  //   };
+  // }, [nameofCity]);
 
-  function handleChange(event) {
-    setCity(event.target.value);
-  }
-  function addName() {
-    setNameOfCity(city);
-  }
+  // function handleChange(event) {
+  //   setCity(event.target.value);
+  // }
+  // function addName() {
+  //   props.setNameOfCity(city);
+  //   props.gotData(true);
+  // }
+  // const setNameOfCity = props.setCity;
 
   return (
     <div className="container_search">
-      <input type="text" placeholder="Enter a city" onChange={handleChange} />
-      <button className="container_search_btn" onClick={() => addName()}>
+      <input
+        placeholder="Enter a city"
+        type="text"
+        onChange={(e) => props.setCity(e.target.value)}
+        value={props.city}
+        onKeyDown={props.getWeatherData}
+      />
+
+      {/* <button className="container_search_btn" onClick={() => addName()}>
         Search for a city
-      </button>
+      </button> */}
     </div>
   );
 }

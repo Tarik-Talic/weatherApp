@@ -1,6 +1,6 @@
 import "../styles/Card.css";
 
-export default function Card() {
+export default function Card(props) {
   return (
     <div className="card">
       <div className="container">
@@ -18,14 +18,14 @@ export default function Card() {
 
       <div className="card-header">
         <span>
-          Messadine, Susah
+          {props.cityName}
           <br />
-          Tunisia
+          {props.countryName}
         </span>
-        <span>March 13</span>
+        <span>{props.icon}</span>
       </div>
 
-      <span className="temp">23°</span>
+      <span className="temp">{Math.round(props.temparature)}°</span>
 
       <div className="temp-scale">
         <span>Celcius</span>

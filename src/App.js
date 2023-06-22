@@ -2,26 +2,47 @@ import "./App.css";
 import Header from "./components/Header";
 import Card from "./components/Card";
 import Search from "./components/Search";
-import { weatherApiUrl, weatherApiKey } from "./api";
+
 import { useEffect, useState } from "react";
 
 function App() {
-  const [weatherData, setWeatherData] = useState([]);
-  const [cityName, setCityName] = useState("");
-  const apiKey = "86838db30afdcecfc41346db003194b2";
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${cityName[0].lat}&lon=${cityName[0].lon}&appid=${apiKey}&units=metric`;
+  const [weatherData, setWeatherData] = useState([{}]);
+  const [city, setCity] = useState("");
 
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setWeatherData(data));
-  }, [cityName]);
+  const apiKey = "3a123655a834444cef356139026ca886";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  // useEffect(() => {
+  //   console.log("i Run");
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((data) => setWeatherData(data));
+  // }, [nameofCity]);
+
+  const getWeatherData = (event) => {
+    if (event.key === "Enter") {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setWeatherData(data);
+        });
+      setCity("");
+    }
+  };
   console.log(weatherData);
   return (
     <div className="App">
       <Header />
-      <Search setCityName={setCityName} />
-      <Card />
+      <Search getWeatherData={getWeatherData} setCity={setCity} city={city} />
+      {typeof weatherData.main === "undefined" ? (
+        <p>Welcome to Weather App!</p>
+      ) : (
+        <Card
+          weatherData={weatherData}
+          cityName={weatherData.name}
+          countryName={weatherData.sys.country}
+          temparature={weatherData.main.temp}
+        />
+      )}
     </div>
   );
 }
