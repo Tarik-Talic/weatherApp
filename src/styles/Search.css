@@ -1,0 +1,15 @@
+.container_search {
+  background-color: #f0eae1;
+  width: 50%;
+}
+.searchInp {
+  width: 80%;
+  height: 2rem;
+  text-align: start;
+  font-weight: 800;
+  border: none;
+  background: none;
+}
+.searchIcon {
+  width: 8%;
+}

@@ -1,9 +1,10 @@
 import "./App.css";
 import Header from "./components/Header";
 import Card from "./components/Card";
+// import WeatherCard from "./components/WeatherCard";
 import Search from "./components/Search";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [weatherData, setWeatherData] = useState([{}]);
@@ -11,12 +12,6 @@ function App() {
 
   const apiKey = "3a123655a834444cef356139026ca886";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  // useEffect(() => {
-  //   console.log("i Run");
-  //   fetch(url)
-  //     .then((res) => res.json())
-  //     .then((data) => setWeatherData(data));
-  // }, [nameofCity]);
 
   const getWeatherData = (event) => {
     if (event.key === "Enter") {
@@ -33,14 +28,22 @@ function App() {
     <div className="App">
       <Header />
       <Search getWeatherData={getWeatherData} setCity={setCity} city={city} />
-      {typeof weatherData.main === "undefined" ? (
-        <p>Welcome to Weather App!</p>
+      {weatherData.main ? (
+        <div className="containerTxt">
+          <p className="welcomeTxt">
+            Welcome <br />
+            to <br />
+            Weather App!
+          </p>
+          <p className="infoTxt">Enter a city to find out the weather information.</p>
+        </div>
       ) : (
         <Card
           weatherData={weatherData}
           cityName={weatherData.name}
           countryName={weatherData.sys.country}
           temparature={weatherData.main.temp}
+          icon={weatherData.weather[0].icon}
         />
       )}
     </div>

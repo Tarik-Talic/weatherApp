@@ -12,3 +12,18 @@ body {
   align-items: center;
   gap: 10rem;
 }
+.containerTxt {
+  margin-top: -5rem;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+}
+
+.welcomeTxt {
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+.infoTxt {
+  font-weight: 300;
+  font-size: 1.5rem;
+}

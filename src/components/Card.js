@@ -1,19 +1,18 @@
 import "../styles/Card.css";
 
 export default function Card(props) {
+  const date = new Date();
+  const nameOfMonthUS = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+    new Date()
+  );
+  const currentDay = date.getDate();
+
+  const currentDate = [currentDay, nameOfMonthUS].join(" ");
+
   return (
     <div className="card">
       <div className="container">
-        <div className="cloud front">
-          <span className="left-front"></span>
-          <span className="right-front"></span>
-        </div>
-        <span className="sun sunshine"></span>
-        <span className="sun"></span>
-        <div className="cloud back">
-          <span className="left-back"></span>
-          <span className="right-back"></span>
-        </div>
+        <img src={`icons/${props.icon}.png`} />
       </div>
 
       <div className="card-header">
@@ -22,7 +21,7 @@ export default function Card(props) {
           <br />
           {props.countryName}
         </span>
-        <span>{props.icon}</span>
+        <span>{currentDate}</span>
       </div>
 
       <span className="temp">{Math.round(props.temparature)}°</span>
