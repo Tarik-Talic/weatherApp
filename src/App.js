@@ -1,10 +1,10 @@
 import "./App.css";
 import Header from "./components/Header";
 import Card from "./components/Card";
-// import WeatherCard from "./components/WeatherCard";
 import Search from "./components/Search";
 
 import { useState } from "react";
+// test
 
 function App() {
   const [weatherData, setWeatherData] = useState([{}]);
@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <Header />
       <Search getWeatherData={getWeatherData} setCity={setCity} city={city} />
-      {weatherData.main ? (
+      {!weatherData.main ? (
         <div className="containerTxt">
           <p className="welcomeTxt">
             Welcome <br />
@@ -44,6 +44,7 @@ function App() {
           countryName={weatherData.sys.country}
           temparature={weatherData.main.temp}
           icon={weatherData.weather[0].icon}
+          description={weatherData.weather[0].description}
         />
       )}
     </div>

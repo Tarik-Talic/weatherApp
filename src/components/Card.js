@@ -6,13 +6,13 @@ export default function Card(props) {
     new Date()
   );
   const currentDay = date.getDate();
-
   const currentDate = [currentDay, nameOfMonthUS].join(" ");
 
   return (
     <div className="card">
       <div className="container">
         <img src={`icons/${props.icon}.png`} />
+        <p>{props.description}</p>
       </div>
 
       <div className="card-header">
