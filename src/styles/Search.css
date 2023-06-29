@@ -2,6 +2,10 @@
   background-color: #f0eae1;
   width: 50%;
 }
+#dark .container_search {
+  background-color: #98bae3;
+  color: white;
+}
 .searchInp {
   width: 80%;
   height: 2rem;
@@ -9,6 +13,9 @@
   font-weight: 800;
   border: none;
   background: none;
+}
+#dark .searchInp {
+  color: white;
 }
 .searchIcon {
   width: 8%;
