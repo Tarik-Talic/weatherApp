@@ -12,7 +12,19 @@
   background-color: #4e638d;
   color: rgb(226, 220, 220);
 }
-
+.toggle_switch {
+  flex-grow: 1;
+  justify-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1.3;
+}
 img {
   margin: 0;
   height: 100px;
