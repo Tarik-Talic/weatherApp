@@ -1,34 +1,43 @@
 import "./App.css";
 import Header from "./components/Header";
 import Card from "./components/Card";
-// import WeatherCard from "./components/WeatherCard";
 import Search from "./components/Search";
+
+import { weatherApiUrl, weatherApiKey } from "./Services/apiServices";
 
 import { useState } from "react";
 
 function App() {
-  const [weatherData, setWeatherData] = useState([{}]);
-  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [forecastWeatherData, setForecastWeatherData] = useState(null);
 
-  const apiKey = "3a123655a834444cef356139026ca886";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const handleOnSearchChange = (searchData) => {
+    const [lat, lon] = searchData.value.split(" ");
 
-  const getWeatherData = (event) => {
-    if (event.key === "Enter") {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setWeatherData(data);
-        });
-      setCity("");
-    }
+    const currentWeatherFetch = fetch(
+      `${weatherApiUrl}/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`
+    );
+    const forecastWeatherFetch = fetch(
+      `${weatherApiUrl}/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`
+    );
+
+    Promise.all([currentWeatherFetch, forecastWeatherFetch])
+      .then(async (response) => {
+        const weatherResponse = await response[0].json();
+        const forecastResponse = await response[1].json();
+
+        setWeatherData({ city: searchData.label, ...weatherResponse });
+        setForecastWeatherData({ city: searchData.label, ...forecastResponse });
+      })
+      .catch((err) => console.log(err));
   };
   console.log(weatherData);
+
   return (
     <div className="App">
       <Header />
-      <Search getWeatherData={getWeatherData} setCity={setCity} city={city} />
-      {weatherData.main ? (
+      <Search onSearchChange={handleOnSearchChange} />
+      {!weatherData ? (
         <div className="containerTxt">
           <p className="welcomeTxt">
             Welcome <br />
