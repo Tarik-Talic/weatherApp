@@ -11,8 +11,13 @@ import { createContext } from "react";
 export const ThemeContext = createContext(null);
 
 function App() {
+  const [theme, setTheme] = useState("light");
   const [weatherData, setWeatherData] = useState(null);
   const [forecastWeatherData, setForecastWeatherData] = useState(null);
+
+  const toggleTheme = () => {
+    setTheme((currTheme) => (currTheme === "light" ? "dark" : "light"));
+  };
 
   const handleOnSearchChange = (searchData) => {
     const [lat, lon] = searchData.value.split(" ");
@@ -37,28 +42,30 @@ function App() {
   console.log(weatherData);
 
   return (
-    <div className="App">
-      <Header />
-      <Search onSearchChange={handleOnSearchChange} />
-      {!weatherData ? (
-        <div className="containerTxt">
-          <p className="welcomeTxt">
-            Welcome <br />
-            to <br />
-            Weather App!
-          </p>
-          <p className="infoTxt">Enter a city to find out the weather information.</p>
-        </div>
-      ) : (
-        <Card
-          weatherData={weatherData}
-          cityName={weatherData.name}
-          countryName={weatherData.sys.country}
-          temparature={weatherData.main.temp}
-          icon={weatherData.weather[0].icon}
-        />
-      )}
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className="App" id={theme}>
+        <Header toggleTheme={toggleTheme} theme={theme} />
+        <Search onSearchChange={handleOnSearchChange} />
+        {!weatherData ? (
+          <div className="containerTxt">
+            <p className="welcomeTxt">
+              Welcome <br />
+              to <br />
+              Weather App!
+            </p>
+            <p className="infoTxt">Enter a city to find out the weather information.</p>
+          </div>
+        ) : (
+          <Card
+            weatherData={weatherData}
+            cityName={weatherData.name}
+            countryName={weatherData.sys.country}
+            temparature={weatherData.main.temp}
+            icon={weatherData.weather[0].icon}
+          />
+        )}
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
