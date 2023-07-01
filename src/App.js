@@ -11,11 +11,23 @@ import { createContext } from "react";
 export const ThemeContext = createContext(null);
 
 function App() {
-  const [weatherData, setWeatherData] = useState([{}]);
-  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [forecastWeatherData, setForecastWeatherData] = useState(null);
 
-  const apiKey = "3a123655a834444cef356139026ca886";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const handleOnSearchChange = (searchData) => {
+    const [lat, lon] = searchData.value.split(" ");
+
+    const currentWeatherFetch = fetch(
+      `${weatherApiUrl}/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`
+    );
+    const forecastWeatherFetch = fetch(
+      `${weatherApiUrl}/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`
+    );
+
+    Promise.all([currentWeatherFetch, forecastWeatherFetch])
+      .then(async (response) => {
+        const weatherResponse = await response[0].json();
+        const forecastResponse = await response[1].json();
 
         setWeatherData({ city: searchData.label, ...weatherResponse });
         setForecastWeatherData({ city: searchData.label, ...forecastResponse });
@@ -27,8 +39,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Search getWeatherData={getWeatherData} setCity={setCity} city={city} />
-      {weatherData.main ? (
+      <Search onSearchChange={handleOnSearchChange} />
+      {!weatherData ? (
         <div className="containerTxt">
           <p className="welcomeTxt">
             Welcome <br />
