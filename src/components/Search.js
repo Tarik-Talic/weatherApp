@@ -2,9 +2,12 @@ import { useState } from "react";
 import "../styles/Search.css";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiUrl, geoApiOptions } from "../Services/apiServices";
+import useLoadOptions from "../Services/useFetch";
 
 export default function Search({ onSearchChange }) {
   const [search, setSearch] = useState(null);
+
+  // const loadOptions = useLoadOptions(search);
 
   const loadOptions = (inputValue) => {
     return fetch(
@@ -13,6 +16,7 @@ export default function Search({ onSearchChange }) {
     )
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         return {
           options: response.data.map((city) => {
             return {
@@ -33,7 +37,7 @@ export default function Search({ onSearchChange }) {
     <span className="container_search">
       <AsyncPaginate
         placeholder="Search for a city ..."
-        debounceTimeout={600}
+        debounceTimeout={1000}
         value={search}
         onChange={handleOnChange}
         loadOptions={loadOptions}

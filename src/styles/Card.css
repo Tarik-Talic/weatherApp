@@ -2,6 +2,12 @@
   margin-bottom: -1px;
 }
 
+.cardContainer {
+  transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
+  display: flex;
+  align-items: center;
+}
+
 .card {
   z-index: 100;
   width: 350px;
@@ -20,7 +26,7 @@
     0px 0px 0px rgba(0, 0, 0, 0.1);
   border-radius: 23px;
   transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
-  cursor: pointer;
+  cursor: default;
 }
 #dark .card {
   background: rgb(54, 84, 117);
@@ -34,8 +40,12 @@
     rgba(152, 186, 227, 1) 79%
   );
 }
-.card:hover {
+
+.cardContainer:hover {
   transform: scale(1.05);
+}
+.card:hover .test1 {
+  transform: translate(50%);
 }
 
 .container {
@@ -118,10 +128,46 @@
 }
 .temp-scale span {
   font-weight: 700;
-  font-size: 23px;
+  font-size: 17px;
   line-height: 134.49%;
   color: rgba(87, 77, 51, 0.66);
+  cursor: pointer;
 }
 #dark .temp-scale span {
+  color: white;
+}
+.moreInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: radial-gradient(
+        178.94% 106.41% at 26.42% 106.41%,
+        #ddcc37 0%,
+        rgba(255, 255, 255, 0) 90.88%
+      )
+      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+    #ffffff;
+  color: rgba(87, 77, 51, 0.66);
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 23px;
+}
+.moreInfo > div {
+  margin-bottom: 20px;
+}
+.moreInfo:focus-visible {
+  transition: 0.2s ease-in-out;
+}
+#dark .moreInfo {
+  background: rgb(54, 84, 117);
+  background: linear-gradient(
+    0deg,
+    rgba(54, 84, 117, 1) 22%,
+    rgba(65, 95, 129, 1) 30%,
+    rgba(88, 119, 155, 1) 38%,
+    rgba(126, 159, 198, 1) 49%,
+    rgba(152, 186, 227, 1) 59%,
+    rgba(152, 186, 227, 1) 79%
+  );
   color: white;
 }

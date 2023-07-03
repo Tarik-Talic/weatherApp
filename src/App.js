@@ -20,6 +20,7 @@ function App() {
   };
 
   const handleOnSearchChange = (searchData) => {
+    console.log(searchData);
     const [lat, lon] = searchData.value.split(" ");
 
     const currentWeatherFetch = fetch(
@@ -61,7 +62,13 @@ function App() {
             cityName={weatherData.name}
             countryName={weatherData.sys.country}
             temparature={weatherData.main.temp}
+            temparatureMax={weatherData.main.temp_max}
+            temparatureMin={weatherData.main.temp_min}
             icon={weatherData.weather[0].icon}
+            feelsLike={weatherData.main.feels_like}
+            pressure={weatherData.main.pressure}
+            humidity={weatherData.main.humidity}
+            wind={weatherData.wind.speed}
           />
         )}
       </div>
