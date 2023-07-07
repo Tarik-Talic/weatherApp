@@ -49,7 +49,7 @@ export default function Card(props) {
 
       <div className="card">
         <div className="container">
-          <img src={`icons/${props.icon}.png`} />
+          <img alt="weatherIcon" src={`icons/${props.icon}.png`} />
           <p>{props.description}</p>
         </div>
 

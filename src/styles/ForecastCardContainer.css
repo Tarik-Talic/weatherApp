@@ -1,0 +1,8 @@
+.forecastContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+#dark h2 {
+  color: white;
+}

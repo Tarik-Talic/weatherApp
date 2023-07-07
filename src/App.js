@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Card from "./components/Card";
 import Search from "./components/Search";
+import ForecastCardContainer from "./components/ForecastCardContainer";
 
 import { weatherApiUrl, weatherApiKey } from "./Services/apiServices";
 
@@ -20,14 +21,13 @@ function App() {
   };
 
   const handleOnSearchChange = (searchData) => {
-    console.log(searchData);
     const [lat, lon] = searchData.value.split(" ");
 
     const currentWeatherFetch = fetch(
       `${weatherApiUrl}/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`
     );
     const forecastWeatherFetch = fetch(
-      `${weatherApiUrl}/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`
+      `${weatherApiUrl}/forecast?lat=${lat}&lon=${lon}&cnt=5&appid=${weatherApiKey}&units=metric`
     );
 
     Promise.all([currentWeatherFetch, forecastWeatherFetch])
@@ -40,7 +40,8 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
-  console.log(weatherData);
+
+  console.log(forecastWeatherData);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -57,19 +58,22 @@ function App() {
             <p className="infoTxt">Enter a city to find out the weather information.</p>
           </div>
         ) : (
-          <Card
-            weatherData={weatherData}
-            cityName={weatherData.name}
-            countryName={weatherData.sys.country}
-            temparature={weatherData.main.temp}
-            temparatureMax={weatherData.main.temp_max}
-            temparatureMin={weatherData.main.temp_min}
-            icon={weatherData.weather[0].icon}
-            feelsLike={weatherData.main.feels_like}
-            pressure={weatherData.main.pressure}
-            humidity={weatherData.main.humidity}
-            wind={weatherData.wind.speed}
-          />
+          <>
+            <Card
+              weatherData={weatherData}
+              cityName={weatherData.name}
+              countryName={weatherData.sys.country}
+              temparature={weatherData.main.temp}
+              temparatureMax={weatherData.main.temp_max}
+              temparatureMin={weatherData.main.temp_min}
+              icon={weatherData.weather[0].icon}
+              feelsLike={weatherData.main.feels_like}
+              pressure={weatherData.main.pressure}
+              humidity={weatherData.main.humidity}
+              wind={weatherData.wind.speed}
+            />
+            <ForecastCardContainer data={forecastWeatherData} />
+          </>
         )}
       </div>
     </ThemeContext.Provider>

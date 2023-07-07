@@ -1,11 +1,8 @@
-.searchInput {
-  margin-bottom: -1px;
-}
-
 .cardContainer {
   transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
 .card {
@@ -25,7 +22,6 @@
     0px 39px 39px rgba(0, 0, 0, 0.09), 0px 10px 21px rgba(0, 0, 0, 0.1),
     0px 0px 0px rgba(0, 0, 0, 0.1);
   border-radius: 23px;
-  transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
   cursor: default;
 }
 #dark .card {
@@ -41,9 +37,6 @@
   );
 }
 
-.cardContainer:hover {
-  transform: scale(1.05);
-}
 .card:hover .test1 {
   transform: translate(50%);
 }
