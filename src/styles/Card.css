@@ -164,3 +164,9 @@
   );
   color: white;
 }
+
+@media screen and (max-width: 600px) {
+  .card {
+    width: 250px;
+  }
+}

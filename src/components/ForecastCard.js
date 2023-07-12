@@ -3,7 +3,7 @@ import "../styles/ForecastCard.css";
 export default function ForecastCard(props) {
   return (
     <div className="forecastCard">
-      <label>{props.day}</label>
+      <h3>{props.day}</h3>
       <label>
         <span className="maxTemp">{Math.round(props.maxTemp)}°C</span>
         <span className="minTemp">/{Math.round(props.minTemp)}°C</span>
